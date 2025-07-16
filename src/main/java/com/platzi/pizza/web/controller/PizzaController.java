@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.platzi.pizza.persistence.entity.PizzaEntity;
 import com.platzi.pizza.service.PizzaService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -32,6 +36,22 @@ public class PizzaController {
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza) {
         return ResponseEntity.ok(pizzaService.get(idPizza));
+    }
+    
+    @PostMapping
+    public ResponseEntity<PizzaEntity> add(@RequestBody PizzaEntity pizza) {
+        if (pizza.getIdPizza() == null || pizzaService.exists(pizza.getIdPizza())) {
+            return ResponseEntity.ok(pizzaService.save(pizza));
+        } 
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<PizzaEntity> update(@RequestBody PizzaEntity pizza) {
+        if (pizza.getIdPizza() != null && pizzaService.exists(pizza.getIdPizza())) {
+            return ResponseEntity.ok(pizzaService.save(pizza));
+        } 
+        return ResponseEntity.badRequest().build();
     }
     
 }
