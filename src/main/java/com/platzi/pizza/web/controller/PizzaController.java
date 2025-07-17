@@ -40,18 +40,11 @@ public class PizzaController {
     
     @PostMapping
     public ResponseEntity<PizzaEntity> add(@RequestBody PizzaEntity pizza) {
-        if (pizza.getIdPizza() == null || pizzaService.exists(pizza.getIdPizza())) {
+        if (pizza.getIdPizza() == null || !pizzaService.exists(pizza.getIdPizza())) {
             return ResponseEntity.ok(pizzaService.save(pizza));
         } 
         return ResponseEntity.badRequest().build();
     }
 
-    @PutMapping
-    public ResponseEntity<PizzaEntity> update(@RequestBody PizzaEntity pizza) {
-        if (pizza.getIdPizza() != null && pizzaService.exists(pizza.getIdPizza())) {
-            return ResponseEntity.ok(pizzaService.save(pizza));
-        } 
-        return ResponseEntity.badRequest().build();
-    }
     
 }
