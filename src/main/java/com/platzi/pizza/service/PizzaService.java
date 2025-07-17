@@ -36,6 +36,14 @@ public class PizzaService {
         return pizzaRepository.findById(idPizza).orElse(null);
     }
 
+    public List<PizzaEntity> getWith(String ingredient) {
+        return pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
+    }
+
+    public List<PizzaEntity> getWithout(String ingredient) {
+        return pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
+    }
+
     public PizzaEntity save(PizzaEntity pizza) {
         return pizzaRepository.save(pizza);
     }
