@@ -36,5 +36,7 @@ public class PizzaService {
         return pizzaRepository.existsById(idPizza);
     }
 
-
+    public void delete(int idPizza) {
+        pizzaRepository.deleteById(idPizza);
+    }
 }
