@@ -33,7 +33,17 @@ public class PizzaController {
     @GetMapping
     public ResponseEntity<List<PizzaEntity>> getAll() {
         return ResponseEntity.ok(pizzaService.getAll());
-    }    
+    }  
+    
+    @GetMapping("/available")
+    public ResponseEntity<List<PizzaEntity>> getAvailable() {
+        return ResponseEntity.ok(pizzaService.getAvailable());
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<PizzaEntity> getByName(@PathVariable String name) {
+        return ResponseEntity.ok(pizzaService.getByName(name));
+    }
 
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza) {
