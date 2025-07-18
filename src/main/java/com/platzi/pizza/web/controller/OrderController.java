@@ -3,7 +3,6 @@ package com.platzi.pizza.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +25,14 @@ public class OrderController {
     public ResponseEntity<List<OrderEntity>> getAll() {
         return ResponseEntity.ok(orderService.getAll());
     }
-    
+
+    @GetMapping("/today") 
+    public ResponseEntity<List<OrderEntity>> getTodayOrders() {
+        return ResponseEntity.ok(orderService.getTodayOrders());
+    }
+
+    @GetMapping("/outside") 
+    public ResponseEntity<List<OrderEntity>> getOutsideOrders() {
+        return ResponseEntity.ok(orderService.getOutsideOrders());
+    }
 }
