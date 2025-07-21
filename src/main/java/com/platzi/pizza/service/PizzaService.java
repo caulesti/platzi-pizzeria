@@ -8,10 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platzi.pizza.persistence.entity.PizzaEntity;
 import com.platzi.pizza.persistence.repository.PizzaPagSortRepository;
 import com.platzi.pizza.persistence.repository.PizzaRepository;
+import com.platzi.pizza.service.dto.UpdatePizzaPriceDto;
+import com.platzi.pizza.service.exception.EmailApiException;
 
 @Service
 public class PizzaService {
@@ -67,4 +70,15 @@ public class PizzaService {
     public List<PizzaEntity> getCheapest(double price) {
         return pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
     }
+
+    @Transactional
+    public void updatePrice(UpdatePizzaPriceDto dto) {
+        pizzaRepository.updatePrice(dto);
+        sendEmail();
+    }
+
+    private void sendEmail() {
+        throw new EmailApiException();
+    }
+
 }
