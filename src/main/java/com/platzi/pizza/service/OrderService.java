@@ -2,13 +2,14 @@ package com.platzi.pizza.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.platzi.pizza.persistence.entity.OrderEntity;
+import com.platzi.pizza.persistence.projection.OrderSummary;
 import com.platzi.pizza.persistence.repository.OrderRepository;
 
 @Service
@@ -38,5 +39,13 @@ public class OrderService {
     public List<OrderEntity> getOutsideOrders() {
         List<String> methods = Arrays.asList(DELIVERY, CARRYOUT);
         return orderRepository.findAllByMethodIn(methods);
+    }
+
+    public List<OrderEntity> getCustomerOrders(String idCustomer) {
+        return orderRepository.findCustomerOrders(idCustomer);
+    }
+
+    public OrderSummary getSummary(int orderId) {
+        return orderRepository.findSummary(orderId);
     }
 }
