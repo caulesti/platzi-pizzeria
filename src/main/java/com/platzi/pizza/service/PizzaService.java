@@ -71,7 +71,7 @@ public class PizzaService {
         return pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = EmailApiException.class)
     public void updatePrice(UpdatePizzaPriceDto dto) {
         pizzaRepository.updatePrice(dto);
         sendEmail();
